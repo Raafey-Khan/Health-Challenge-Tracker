@@ -1,35 +1,40 @@
-import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AppComponent } from './app.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
-describe('AppComponent', () => {
+import { WorkoutFormComponent } from './workout-form/workout-form.component';
+import { WorkoutService } from './workout.service';
+
+describe('WorkoutFormComponent', () => {
+  let component: WorkoutFormComponent;
+  let fixture: ComponentFixture<WorkoutFormComponent>;
+  let workoutService: WorkoutService;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
+      declarations: [ WorkoutFormComponent ],
+      imports: [ FormsModule ],
+      providers: [ WorkoutService ]
+    })
+    .compileComponents();
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'health-challenge-tracker'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('health-challenge-tracker');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+  beforeEach(() => {
+    fixture = TestBed.createComponent(WorkoutFormComponent);
+    component = fixture.componentInstance;
+    workoutService = TestBed.inject(WorkoutService);
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('health-challenge-tracker app is running!');
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should call saveUser method on submit', () => {
+    spyOn(workoutService, 'saveUser');
+    component.userName = 'John Doe';
+    component.workoutType = 'Cardio';
+    component.workoutMinutes = 30;
+    component.onSubmit();
+    expect(workoutService.saveUser).toHaveBeenCalled();
   });
 });
