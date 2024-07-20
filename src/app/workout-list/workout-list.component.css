@@ -7,7 +7,11 @@
   mat-card {
     padding: 16px;
   }
-  
+  tbody{
+    text-align: center;
+   
+    height: 40vh;
+  }
   table {
     width: 100%;
   }

@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-
 import { WorkoutFormComponent } from './workout-form/workout-form.component';
 import { WorkoutService } from './workout.service';
 
